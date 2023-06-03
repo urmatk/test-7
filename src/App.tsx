@@ -35,6 +35,18 @@ function App() {
     setItems(newItems);
   }
 
+  const deleteItem = (name: string) => {
+    const newItems = {...items};
+    if (newItems[name]) {
+      if (newItems[name] === 1) {
+        delete newItems[name];
+      } else {
+        newItems[name] = newItems[name] - 1;
+      }
+    }
+    setItems(newItems);
+  }
+
   return (
     <div className="App">
       <div className="Container">
@@ -47,8 +59,11 @@ function App() {
               {
                 Object.keys(items).map(key => {
                   const item = MENU.find(element => element.name === key);
-                  return <div key={key}>
-                    <span>{key} x{items[key]} {(item?.price || 0) * items[key]}KGS </span>
+                  return <div className="order" key={key}>
+                    <span>{key}   </span>
+                    <span>x{items[key]}</span>
+                    <span>{(item?.price || 0) * items[key]}KGS</span>
+                    <button onClick={() => deleteItem(key)}>delete</button>
                   </div>
                 })
               }
