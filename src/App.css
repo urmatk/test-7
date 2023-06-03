@@ -5,4 +5,37 @@
 .Container {
   display: flex;
   justify-content: space-between;
+  width: 1200px;
 }
+
+.OrderDetails{
+  width: 600px;
+  border: 1px solid black;
+}
+
+.AddItems {
+  border: 1px solid blue;
+  width: 600px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.btn {
+  cursor: pointer;
+  width: 270px;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 2px;
+  margin: 10px;
+}
+
+.btns {
+  padding: 5px;
+  background-size: contain;
+}
+
+.name {
+  font-weight: bold;
+}
+

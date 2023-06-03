@@ -2,13 +2,17 @@ import React from 'react';
 
 interface IAddItemsProps {
   image: string,
-  clickButton: React.MouseEventHandler<HTMLButtonElement>,
+  name: string,
+  price: number,
+  clickButton: React.MouseEventHandler<HTMLDivElement>,
 }
 const AddItems: React.FC<IAddItemsProps> = props => {
   return (
     <div>
-      <div>
-        <button className='btns' onClick={props.clickButton} style={{ backgroundImage:`url(${props.image}`}} ></button>
+      <div className="btn" onClick={props.clickButton}>
+        <img src={props.image} alt=""/>
+        <p className="name"> {props.name}</p>
+        <p> {props.price}</p>
       </div>
 
     </div>

@@ -3,7 +3,6 @@ import './App.css';
 import {consistsOf} from "./Types";
 import coffee from "./img/coffee.png";
 import Food from "./img/Food.png";
-import OrderDetails from "./components/OrderDetails/OrderDetails";
 import AddItems from "./components/AddItems/AddItems";
 
 
@@ -15,24 +14,55 @@ const MENU: consistsOf[] = [
   {name: 'Tea', price: 50, image: coffee},
   {name: 'Cola', price: 40, image: coffee},
 ];
-function App() {
-  const [AddItems, setAddItems] = useState([]);
 
-  const changeCount = () => {
-    const AddItems = [...MENU];
-    if ()
+function App() {
+  const [items, setItems] = useState<{ [key: string]: number }>({});
+  let price = 0;
+
+  for (let key in items) {
+    const item = MENU.find(el => el.name === key);
+    if (item) {
+      price = price + (item.price * items[key]);
+    }
+  }
+  const FoodClick = (name: string) => {
+    const newItems = {...items};
+    if (newItems[name]) {
+      newItems[name] = newItems[name] + 1;
+    } else {
+      newItems[name] = 1;
+    }
+    setItems(newItems);
   }
 
   return (
     <div className="App">
       <div className="Container">
         <div className="OrderDetails">
-
+          {
+            price === 0 ? <div>
+              Order is empty <br/>
+              Please add some items
+            </div> : <div>
+              {
+                Object.keys(items).map(key => {
+                  const item = MENU.find(element => element.name === key);
+                  return <div key={key}>
+                    <span>{key} x{items[key]} {(item?.price || 0) * items[key]}KGS </span>
+                  </div>
+                })
+              }
+              <b>Total price: {price}</b>
+            </div>
+          }
         </div>
         <div className="AddItems">
           {MENU.map((item) => (
-            <AddItems image={item.image} clickButton={changeCount}/>
+            <AddItems key={item.name} name={item.name} image={item.image} price={item.price}
+                      clickButton={() => FoodClick(item.name)}/>
+
           ))}
+
 
         </div>
 
